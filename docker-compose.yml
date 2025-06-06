@@ -10,6 +10,7 @@ services:
       - WEBHOOK_ENABLED=true
       - WEBHOOK_URL=https://n8n-production-a71c.up.railway.app/webhook/whatsapp-in
       - TOKEN_SECRET=123456
+      - SECRET_KEY=123456
     build:
       context: .
     volumes:
