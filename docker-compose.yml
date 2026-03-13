@@ -1,16 +1,19 @@
-version: "3"
-
+version: '3.9'
 services:
   wppconnect:
-    container_name: wpp-server
-    restart: unless-stopped
     build:
       context: .
     volumes:
-      - ./config.ts:/usr/src/wpp-server/config.ts
-      - ./wppconnect_tokens:/usr/src/wpp-server/tokens
+      - ./config.ts:/app/config.ts
+      - ./wppconnect_tokens:/app/tokens
     ports:
-      - "21465:21465"
+      - '21465:21465'
+    env_file:
+      - .env
+    networks:
+      - vps_shared_network
 
-volumes:
-  wppconnect_tokens: {}      
+networks:
+  vps_shared_network:
+    name: vps_shared_network
+    driver: bridge
