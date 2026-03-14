@@ -21,12 +21,3 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             /opt/scripts/deploy-wppconnect-server.sh ${{ secrets.VPS_PROJECT_PATH }}
-
-            # Pull the latest changes from the main branch
-            git pull origin main
-
-            # Build and start the containers using the production complete compose file
-            docker compose -f docker-compose.prod.yml up -d --build
-
-            # Remove dangling images to free up space
-            docker image prune -f
