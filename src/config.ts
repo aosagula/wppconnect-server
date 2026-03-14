@@ -44,6 +44,7 @@ export default {
     logger: ['console', 'file'],
   },
   createOptions: {
+    autoClose: 0, // 0 = never auto close, give time to scan QR
     browserArgs: [
       '--disable-web-security',
       '--no-sandbox',
@@ -69,6 +70,7 @@ export default {
       '--ignore-certificate-errors',
       '--ignore-ssl-errors',
       '--ignore-certificate-errors-spki-list',
+      '--no-proxy-server',
     ],
     /**
      * Example of configuring the linkPreview generator
