@@ -36,6 +36,10 @@ import {
 } from './util/functions';
 import { createLogger } from './util/logger';
 
+// dotenv is intentionally disabled here.
+// In Docker, environment variables are injected before Node starts via env_file in docker-compose.yml,
+// so process.env is already populated when config.ts is loaded.
+// If running locally without Docker, set the variables manually or use a bootstrap script before this entry point.
 //require('dotenv').config();
 
 export const logger = createLogger(config.log);
