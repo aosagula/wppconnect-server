@@ -11,7 +11,7 @@ export default {
   maxListeners: 15,
   customUserDataDir: './userDataDir/',
   webhook: {
-    url: null,
+    url: 'https://n8n-production-a71c.up.railway.app/webhook/whatsapp-in',
     autoDownload: true,
     uploadS3: false,
     readMessage: true,
@@ -47,6 +47,7 @@ export default {
     browserArgs: [
       '--disable-web-security',
       '--no-sandbox',
+      '--disable-setuid-sandbox',
       '--disable-web-security',
       '--aggressive-cache-discard',
       '--disable-cache',

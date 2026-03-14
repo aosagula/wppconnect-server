@@ -1,6 +1,15 @@
 version: '3.9'
 services:
   wppconnect:
+    container_name: wppconnect-server
+    restart: unless-stopped
+    environment:
+      - PORT=21465
+      - CREATE_CLIENT=true
+      - WEBHOOK_ENABLED=true
+      - WEBHOOK_URL=https://n8n-production-a71c.up.railway.app/webhook/whatsapp-in
+      - TOKEN_SECRET=123456
+      - SECRET_KEY=123456
     build:
       context: .
     volumes:
