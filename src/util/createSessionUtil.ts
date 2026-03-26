@@ -152,7 +152,11 @@ export default class CreateSessionUtil {
         await this.onLabelUpdated(client, req);
       }
     } catch (e) {
-      req.logger.error(e);
+      if (e instanceof Error && e.name === 'TargetCloseError') {
+        req.logger.info(`[${session}] Browser closed after session disconnect`);
+      } else {
+        req.logger.error(e);
+      }
       if (e instanceof Error && e.name == 'TimeoutError') {
         const client = this.getClient(session) as any;
         client.status = 'CLOSED';

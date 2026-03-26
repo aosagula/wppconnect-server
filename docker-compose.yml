@@ -17,5 +17,4 @@ services:
 
 networks:
   vps_shared_network:
-    name: vps_shared_network
-    driver: bridge
+    external: true
