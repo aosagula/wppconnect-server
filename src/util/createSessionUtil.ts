@@ -15,6 +15,8 @@
  */
 import { create, SocketState, StatusFind } from '@wppconnect-team/wppconnect';
 import { Request } from 'express';
+import fs from 'fs';
+import path from 'path';
 
 import { download } from '../controller/sessionController';
 import { WhatsAppServer } from '../types/WhatsAppServer';
@@ -58,6 +60,16 @@ export default class CreateSessionUtil {
         req.serverOptions.createOptions.puppeteerOptions = {
           userDataDir: req.serverOptions.customUserDataDir + session,
         };
+      }
+
+      // Remove Chromium lock file left by a previous crash/restart
+      const userDataDir =
+        req.serverOptions.createOptions?.puppeteerOptions?.userDataDir ??
+        path.join(req.serverOptions.customUserDataDir ?? './userDataDir/', session);
+      const lockFile = path.join(userDataDir, 'SingletonLock');
+      if (fs.existsSync(lockFile)) {
+        fs.rmSync(lockFile, { force: true });
+        req.logger.info(`[${session}] Removed stale SingletonLock from ${userDataDir}`);
       }
 
       const wppClient = await create(
