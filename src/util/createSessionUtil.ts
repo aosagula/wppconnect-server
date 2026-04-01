@@ -65,11 +65,16 @@ export default class CreateSessionUtil {
       // Remove Chromium lock file left by a previous crash/restart
       const userDataDir =
         req.serverOptions.createOptions?.puppeteerOptions?.userDataDir ??
-        path.join(req.serverOptions.customUserDataDir ?? './userDataDir/', session);
+        path.join(
+          req.serverOptions.customUserDataDir ?? './userDataDir/',
+          session
+        );
       const lockFile = path.join(userDataDir, 'SingletonLock');
       if (fs.existsSync(lockFile)) {
         fs.rmSync(lockFile, { force: true });
-        req.logger.info(`[${session}] Removed stale SingletonLock from ${userDataDir}`);
+        req.logger.info(
+          `[${session}] Removed stale SingletonLock from ${userDataDir}`
+        );
       }
 
       const wppClient = await create(
