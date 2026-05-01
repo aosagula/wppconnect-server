@@ -6,8 +6,8 @@ services:
     build:
       context: .
     volumes:
-      - ./config.ts:/app/config.ts
-      - ./wppconnect_tokens:/app/tokens
+      - ./tokens:/usr/src/wpp-server/tokens
+      - ./userDataDir:/usr/src/wpp-server/userDataDir
     ports:
       - '21465:21465'
     env_file:
