@@ -169,8 +169,15 @@ export default class CreateSessionUtil {
         await this.onLabelUpdated(client, req);
       }
     } catch (e) {
-      if (e instanceof Error && e.name === 'TargetCloseError') {
-        req.logger.info(`[${session}] Browser closed after session disconnect`);
+      if (
+        e instanceof Error &&
+        (e.name === 'TargetCloseError' ||
+          (e.name === 'ProtocolError' &&
+            e.message.includes('Execution context was destroyed')))
+      ) {
+        req.logger.info(
+          `[${session}] Browser context destroyed after disconnect`
+        );
       } else {
         req.logger.error(e);
       }
